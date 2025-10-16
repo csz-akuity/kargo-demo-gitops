@@ -6,6 +6,8 @@ kind: Project
 metadata:
   name: kargo-demo-gitops
   namespace: kargo-demo-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   promotionPolicies:
     - stage: test
