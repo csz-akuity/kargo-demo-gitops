@@ -8,11 +8,4 @@ metadata:
   namespace: kargo-demo-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
-spec:
-  promotionPolicies:
-    - stage: test
-      autoPromotionEnabled: true
-    - stage: uat
-      autoPromotionEnabled: true
-    - stage: prod
-      autoPromotionEnabled: false
+
