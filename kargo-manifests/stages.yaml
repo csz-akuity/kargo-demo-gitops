@@ -1,16 +1,18 @@
 ---
-# Test stage - auto-promotes from warehouse
+# Test stage - Team Beta specific
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
   name: test
-  namespace: kargo-demo-gitops
+  namespace: kargo-demo-gitops-team-beta
+  labels:
+    team: beta
 spec:
   # Request Freight directly from the warehouse
   requestedFreight:
     - origin:
         kind: Warehouse
-        name: kargo-demo-gitops
+        name: kargo-demo-gitops-team-beta
       sources:
         direct: true
   
@@ -22,7 +24,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: main
+              - branch: team-beta-dev
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
@@ -38,24 +40,26 @@ spec:
         - uses: git-commit
           config:
             path: ./src
-            message: "Update nginx image for test stage"
+            message: "Update nginx image for test stage - Team Beta"
         - uses: git-push
           config:
             path: ./src
 
 ---
-# UAT stage - requires manual promotion from test
+# UAT stage - Team Beta specific
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
   name: uat
-  namespace: kargo-demo-gitops
+  namespace: kargo-demo-gitops-team-beta
+  labels:
+    team: beta
 spec:
   # Request Freight from test stage
   requestedFreight:
     - origin:
         kind: Warehouse
-        name: kargo-demo-gitops
+        name: kargo-demo-gitops-team-beta
       sources:
         stages:
           - test
@@ -68,7 +72,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: main
+              - branch: team-beta-dev
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
@@ -84,7 +88,7 @@ spec:
         - uses: git-commit
           config:
             path: ./src
-            message: "Update nginx image for uat stage"
+            message: "Update nginx image for uat stage - Team Beta"
         - uses: git-push
           config:
             path: ./src
@@ -92,21 +96,23 @@ spec:
   # Simple verification
   verification:
     analysisTemplates:
-      - name: verify-deployment-health
+      - name: verify-deployment-health-team-beta
 
 ---
-# Production stage - requires manual promotion from uat
+# Production stage - Team Beta specific
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
   name: prod
-  namespace: kargo-demo-gitops
+  namespace: kargo-demo-gitops-team-beta
+  labels:
+    team: beta
 spec:
   # Request Freight from uat stage
   requestedFreight:
     - origin:
         kind: Warehouse
-        name: kargo-demo-gitops
+        name: kargo-demo-gitops-team-beta
       sources:
         stages:
           - uat
@@ -119,7 +125,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: main
+              - branch: team-beta-dev
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
@@ -135,7 +141,7 @@ spec:
         - uses: git-commit
           config:
             path: ./src
-            message: "Update nginx image for prod stage"
+            message: "Update nginx image for prod stage - Team Beta"
         - uses: git-push
           config:
             path: ./src
@@ -143,4 +149,4 @@ spec:
   # Verification before considering promotion successful
   verification:
     analysisTemplates:
-      - name: verify-deployment-health
+      - name: verify-deployment-health-team-beta

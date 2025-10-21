@@ -1,10 +1,12 @@
 ---
-# Warehouse for kargo-demo-gitops
+# Warehouse for kargo-demo-gitops - Team Beta specific
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Warehouse
 metadata:
-  name: kargo-demo-gitops
-  namespace: kargo-demo-gitops
+  name: kargo-demo-gitops-team-beta
+  namespace: kargo-demo-gitops-team-beta
+  labels:
+    team: beta
 spec:
   interval: 5m0s
   
@@ -18,4 +20,4 @@ spec:
     # Watch Git repo for config changes
     - git:
         repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
-        branch: main
+        branch: team-beta-dev
