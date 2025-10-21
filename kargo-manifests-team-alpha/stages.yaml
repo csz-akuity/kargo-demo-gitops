@@ -24,7 +24,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: team-alpha-dev
+              - branch: main
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
@@ -72,7 +72,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: team-alpha-dev
+              - branch: main
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
@@ -125,7 +125,7 @@ spec:
           config:
             repoURL: https://github.com/csz-akuity/kargo-demo-gitops.git
             checkout:
-              - branch: team-alpha-dev
+              - branch: main
                 path: ./src
         - uses: kustomize-set-image
           as: update-image
