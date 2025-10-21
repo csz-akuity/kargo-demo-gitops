@@ -2,10 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kargo-demo
+  labels:
+    team: alpha
+    environment: development
 spec:
   selector:
     app: kargo-demo
+    team: alpha
   ports:
   - protocol: TCP
     port: 3000
     targetPort: 80
+  type: ClusterIP

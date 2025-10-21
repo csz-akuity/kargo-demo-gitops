@@ -2,16 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kargo-demo
+  labels:
+    team: alpha
+    environment: development
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: kargo-demo
+      team: alpha
   template:
     metadata:
       labels:
         app: kargo-demo
+        team: alpha
+        environment: development
     spec:
       containers:
       - name: nginx 
-        image: public.ecr.aws/nginx/nginx:placeholder
+        image: public.ecr.aws/nginx/nginx:1.25-alpine
+        ports:
+        - containerPort: 80
+        env:
+        - name: TEAM_NAME
+          value: "Team Alpha"
+        - name: APP_THEME
+          value: "blue"
+        - name: FEATURE_FLAG_ANALYTICS
+          value: "enabled"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"

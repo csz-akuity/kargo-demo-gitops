@@ -4,3 +4,8 @@ kind: Kustomization
 resources:
 - deploy.yaml
 - service.yaml
+- html-configmap.yaml
+
+commonLabels:
+  team: alpha
+  environment: development
