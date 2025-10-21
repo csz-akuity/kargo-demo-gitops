@@ -1,13 +1,10 @@
 ---
-# Simple verification job - Team Alpha specific
-# No GCP dependencies, just uses built-in kubectl
+# Base verification job - Generic template
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: verify-deployment-health-team-alpha
-  namespace: kargo-demo-gitops-team-alpha
-  labels:
-    team: alpha
+  name: verify-deployment-health
+  namespace: kargo-demo-gitops
 spec:
   metrics:
     - name: check-deployment-ready
@@ -29,7 +26,7 @@ spec:
                       - |
                         # Simple check - just return success for testing
                         # In a real scenario, this would check actual deployment health
-                        echo "Verification job running for Team Alpha..."
+                        echo "Verification job running..."
                         echo "Checking deployment health..."
                         sleep 5
                         echo "true"

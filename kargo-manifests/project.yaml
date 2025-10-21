@@ -1,13 +1,9 @@
 ---
-# Kargo Project - Team Alpha specific
-# This file lives in: github.com/csz-akuity/kargo-demo-gitops (team-alpha-dev branch)
+# Base Kargo Project - Generic template
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Project
 metadata:
-  name: kargo-demo-gitops-team-alpha
-  namespace: kargo-demo-gitops-team-alpha
+  name: kargo-demo-gitops
+  namespace: kargo-demo-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
-  labels:
-    team: alpha
-
